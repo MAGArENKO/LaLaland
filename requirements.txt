@@ -1,0 +1,59 @@
+# Core
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Async
+aiohttp>=3.9.0
+aiofiles>=23.2.0
+httpx>=0.25.0
+
+# Database
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+
+# Vector Store
+qdrant-client>=1.6.0
+
+# Embeddings
+sentence-transformers>=2.2.0
+
+# Data Labeling (optional - Argilla)
+argilla>=1.20.0
+
+# Task Queue
+celery>=5.3.0
+redis>=5.0.0
+
+# Configuration
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+
+# CLI & UI
+rich>=13.0.0
+streamlit>=1.28.0
+plotly>=5.18.0
+
+# File Processing
+chardet>=5.2.0
+
+# GitHub
+PyGithub>=2.1.0
+
+# Logging
+loguru>=0.7.0
+
+# Utilities
+pandas>=2.0.0
+
+# Web scraping
+beautifulsoup4>=4.12.0
+
+# File watching
+watchdog>=3.0.0
+
+# Linting/Testing
+ruff>=0.4.0
+pytest>=8.0.0
+pytest-asyncio>=0.23.0

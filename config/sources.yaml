@@ -1,0 +1,41 @@
+sources:
+  github:
+    enabled: false
+    repositories: []
+    search_queries: []
+    include_forks: true
+    include_gists: true
+
+  filesystem:
+    enabled: true
+    paths:
+      - /workspace
+    patterns:
+      - "*.py"
+      - "*.js"
+      - "*.ts"
+      - "*.md"
+      - "*.json"
+      - "*.yaml"
+      - "*.yml"
+      - "*.txt"
+      - "*.sql"
+      - "*.html"
+      - "*.css"
+    exclude_patterns:
+      - "node_modules/*"
+      - "__pycache__/*"
+      - ".git/*"
+      - ".venv/*"
+      - "*.pyc"
+      - "data/*"
+      - "logs/*"
+
+project_keywords:
+  - "recovery"
+  - "scraper"
+  - "pipeline"
+
+file_signatures:
+  - pattern: "Project Recovery"
+    type: source_code
