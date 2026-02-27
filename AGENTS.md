@@ -2,30 +2,35 @@
 
 ## Cursor Cloud specific instructions
 
-### Repository Purpose
+### Repository Overview
 
-This repository is a **personal recovery archive** — a collection of research materials, AI chat logs, architecture plans, and code snippets the owner gathered after a drive crash. It documents trails followed online and locally while recovering lost work and planning two projects:
+**Project Recovery System** — a self-sustaining data recovery and organization platform that scrapes files from multiple sources (filesystem, GitHub), processes them with embeddings (sentence-transformers), stores them in a vector database (Qdrant), and presents them for human review via Argilla or a Streamlit dashboard.
 
-1. **MamaAI Agency Recovery System** — A data recovery/organization platform (FastAPI, Argilla, PostgreSQL, Qdrant, Celery)
-2. **AI Creative Pipeline** — An AI-driven VFX/3D content creation system (ComfyUI, Krita, OpenUSD, Blender CLI)
+The original `README.md` (~598KB) is the owner's raw research archive gathered after a drive crash. The actual source code was extracted and enhanced from its inline code snippets.
 
-### Repository Contents
+### Services
 
-- `README.md` (~598KB, ~17,600 lines): The primary archive. Contains AI conversation logs, architecture diagrams, inline code snippets, project structures, docker-compose configs, requirements lists, and planning notes. This is **not** structured documentation — it is a raw research dump.
-- `python -m venv venv`: A misnamed file (filename accidentally created from a shell command). Contains 3 lines of setup snippets.
+| Service | Port | How to start | Required? |
+|---------|------|-------------|-----------|
+| FastAPI API | 8000 | `python main.py api` | Yes |
+| Streamlit Dashboard | 8501 | `python main.py dashboard` | Optional |
+| PostgreSQL | 5432 | `docker compose up -d postgres` | Optional (not yet wired in) |
+| Qdrant | 6333 | `docker compose up -d qdrant` | Optional (in-memory fallback) |
+| Redis | 6379 | `docker compose up -d redis` | Optional (needed for Celery) |
 
-**There is no runnable source code.** All code exists only as inline snippets within the README.
+### Quick Commands
 
-### Development Environment
+- **Lint**: `ruff check .` (auto-fix: `ruff check --fix .`)
+- **Tests**: `python -m pytest tests/ -v`
+- **API**: `source .venv/bin/activate && python main.py api`
+- **Dashboard**: `source .venv/bin/activate && python main.py dashboard`
+- **Pipeline (one-shot)**: `source .venv/bin/activate && python main.py pipeline`
+- **Docker services**: `sudo docker compose up -d`
 
-- Python 3.12.3 virtual environment at `.venv/`
-- Activate with: `source .venv/bin/activate`
-- No dependencies to install (no `requirements.txt` file exists)
-- No lint, test, build, or run targets exist
+### Gotchas
 
-### Notes for Future Agents
-
-- The README contains multiple overlapping versions of planned project structures; the most complete one starts around line 4890.
-- Docker Compose configuration for backing services is described starting around line 6461.
-- Requirements lists appear at lines ~6567 and ~11481.
-- If the owner decides to extract code from the README into actual files, a `requirements.txt`, `docker-compose.yml`, and proper Python package structure will need to be created.
+- The `qdrant-client>=1.17` uses `query_points()` instead of the deprecated `search()` method.
+- All external services (Qdrant, Argilla, Redis) degrade gracefully — the app works without them using in-memory fallbacks.
+- The sentence-transformers model (`all-MiniLM-L6-v2`) downloads ~90MB on first use; cached at `~/.cache/huggingface/`.
+- Docker requires `fuse-overlayfs` and `iptables-legacy` in the cloud VM (Docker-in-Docker setup).
+- The `README.md` is ~600KB — it's the owner's raw research archive, not documentation.
