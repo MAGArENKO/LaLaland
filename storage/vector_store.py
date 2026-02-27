@@ -1,5 +1,5 @@
-from typing import List, Dict, Any, Optional
 import logging
+from typing import Any, Dict, List, Optional
 
 from processors.processor import ProcessedChunk
 
@@ -129,15 +129,15 @@ class VectorStore:
 
         query_filter = models.Filter(must=filter_conditions) if filter_conditions else None
 
-        results = self.client.search(
+        results = self._client.query_points(
             collection_name=self.collection_name,
-            query_vector=query_vector,
+            query=query_vector,
             query_filter=query_filter,
             limit=limit,
             with_payload=True,
         )
 
-        return [{"score": hit.score, **hit.payload} for hit in results]
+        return [{"score": hit.score, **hit.payload} for hit in results.points]
 
     def _search_memory(self, query_vector, limit):
         scored = []

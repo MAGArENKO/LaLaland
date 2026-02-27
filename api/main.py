@@ -1,15 +1,34 @@
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+import logging
+from contextlib import asynccontextmanager
+from typing import Any, Dict, List, Optional
+
+from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
-import logging
 
 logger = logging.getLogger(__name__)
+
+pipeline = None
+
+
+@asynccontextmanager
+async def lifespan(application: FastAPI):
+    global pipeline
+    from orchestrator.pipeline import RecoveryPipeline
+
+    try:
+        pipeline = RecoveryPipeline()
+        logger.info("Recovery pipeline initialized")
+    except Exception as e:
+        logger.error(f"Error initializing pipeline: {e}")
+    yield
+
 
 app = FastAPI(
     title="Project Recovery System",
     description="Self-sustaining system for recovering and organizing lost project data",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -19,20 +38,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-pipeline = None
-
-
-@app.on_event("startup")
-async def startup():
-    global pipeline
-    from orchestrator.pipeline import RecoveryPipeline
-
-    try:
-        pipeline = RecoveryPipeline()
-        logger.info("Recovery pipeline initialized")
-    except Exception as e:
-        logger.error(f"Error initializing pipeline: {e}")
 
 
 class SearchQuery(BaseModel):

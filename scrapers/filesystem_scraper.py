@@ -1,11 +1,11 @@
-import asyncio
-import aiofiles
-import os
-from pathlib import Path
-from datetime import datetime
-from typing import AsyncIterator, Dict, Any, Set, Optional
 import fnmatch
 import logging
+import os
+from datetime import datetime
+from pathlib import Path
+from typing import Any, AsyncIterator, Dict, Optional, Set
+
+import aiofiles
 
 from .base import BaseScraper, ScrapedItem, SourceType
 

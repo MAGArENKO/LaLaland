@@ -1,10 +1,9 @@
-import pytest
-import asyncio
-from pathlib import Path
 import tempfile
-import os
+from pathlib import Path
 
-from scrapers.base import ScrapedItem, SourceType, ContentType, BaseScraper
+import pytest
+
+from scrapers.base import ContentType, ScrapedItem, SourceType
 from scrapers.filesystem_scraper import FilesystemScraper
 
 

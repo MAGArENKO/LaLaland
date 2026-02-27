@@ -1,7 +1,6 @@
-import pytest
 
-from storage.vector_store import VectorStore
 from processors.processor import ProcessedChunk
+from storage.vector_store import VectorStore
 
 
 class TestVectorStoreInMemory:

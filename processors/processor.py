@@ -1,10 +1,10 @@
 import hashlib
-from dataclasses import dataclass
-from typing import List, Dict, Any, Optional
-import re
 import logging
+import re
+from dataclasses import dataclass
+from typing import Any, Dict, List
 
-from scrapers.base import ScrapedItem, ContentType
+from scrapers.base import ContentType, ScrapedItem
 
 logger = logging.getLogger(__name__)
 

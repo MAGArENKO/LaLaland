@@ -1,6 +1,6 @@
 import asyncio
-from datetime import datetime
 import logging
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +13,7 @@ def get_celery_app():
         try:
             from celery import Celery
             from celery.schedules import crontab
+
             from config.settings import settings
 
             _celery_app = Celery("recovery_tasks", broker=settings.redis_url, backend=settings.redis_url)

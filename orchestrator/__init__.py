@@ -1,3 +1,3 @@
-from .pipeline import RecoveryPipeline, PipelineStatus, PipelineRun
+from .pipeline import PipelineRun, PipelineStatus, RecoveryPipeline
 
 __all__ = ["RecoveryPipeline", "PipelineStatus", "PipelineRun"]

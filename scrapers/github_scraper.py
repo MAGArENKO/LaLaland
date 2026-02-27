@@ -1,7 +1,7 @@
 import asyncio
 import base64
-from typing import AsyncIterator, Dict, Any, Optional
 import logging
+from typing import Any, AsyncIterator, Dict, Optional
 
 from .base import BaseScraper, ScrapedItem, SourceType
 

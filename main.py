@@ -1,5 +1,6 @@
-import asyncio
 import argparse
+import asyncio
+
 import uvicorn
 from rich.console import Console
 from rich.table import Table

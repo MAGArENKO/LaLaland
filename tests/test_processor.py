@@ -1,7 +1,6 @@
-import pytest
 
 from processors.processor import DataProcessor, ProcessedChunk
-from scrapers.base import ScrapedItem, SourceType, ContentType
+from scrapers.base import ContentType, ScrapedItem, SourceType
 
 
 class TestDataProcessor:

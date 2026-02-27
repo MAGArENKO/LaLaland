@@ -1,17 +1,16 @@
-import asyncio
-from typing import List, Dict, Any, Optional
-from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
 import logging
+from dataclasses import dataclass, field
+from datetime import datetime
+from enum import Enum
+from typing import Any, Dict, List, Optional
 
-from scrapers.base import ScrapedItem, SourceType
-from scrapers.github_scraper import GitHubScraper
-from scrapers.filesystem_scraper import FilesystemScraper
-from processors.processor import DataProcessor
-from storage.vector_store import VectorStore
 from argilla_integration.datasets import ArgillaManager
-from config.settings import settings, load_sources_config
+from config.settings import load_sources_config, settings
+from processors.processor import DataProcessor
+from scrapers.base import ScrapedItem, SourceType
+from scrapers.filesystem_scraper import FilesystemScraper
+from scrapers.github_scraper import GitHubScraper
+from storage.vector_store import VectorStore
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

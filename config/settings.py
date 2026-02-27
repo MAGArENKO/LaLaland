@@ -1,7 +1,8 @@
-from pydantic_settings import BaseSettings
-from typing import Optional, List
 from pathlib import Path
+from typing import List, Optional
+
 import yaml
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
