@@ -2,34 +2,30 @@
 
 ## Cursor Cloud specific instructions
 
-### Repository State
+### Repository Purpose
 
-This repository is currently a **planning/design document repository** — not a runnable codebase. It contains:
+This repository is a **personal recovery archive** — a collection of research materials, AI chat logs, architecture plans, and code snippets the owner gathered after a drive crash. It documents trails followed online and locally while recovering lost work and planning two projects:
 
-- `README.md` (~598KB, ~17,600 lines): A large design document composed of AI chat logs, architecture diagrams, and inline code snippets describing a planned **MamaAI Agency Recovery System** and **AI Creative Pipeline**.
-- `python -m venv venv`: A misnamed file (filename was accidentally created from a shell command). Contains 3 lines of setup command snippets.
+1. **MamaAI Agency Recovery System** — A data recovery/organization platform (FastAPI, Argilla, PostgreSQL, Qdrant, Celery)
+2. **AI Creative Pipeline** — An AI-driven VFX/3D content creation system (ComfyUI, Krita, OpenUSD, Blender CLI)
 
-**There are no actual source code files, no `requirements.txt`, no `docker-compose.yml`, no `Dockerfile`, no tests, and no runnable application.**
+### Repository Contents
 
-### Planned Tech Stack (from README)
+- `README.md` (~598KB, ~17,600 lines): The primary archive. Contains AI conversation logs, architecture diagrams, inline code snippets, project structures, docker-compose configs, requirements lists, and planning notes. This is **not** structured documentation — it is a raw research dump.
+- `python -m venv venv`: A misnamed file (filename accidentally created from a shell command). Contains 3 lines of setup snippets.
 
-The README describes a Python-based system using: FastAPI, Streamlit, PostgreSQL, Qdrant (vector DB), Redis, Elasticsearch, Argilla (data labeling), Celery, sentence-transformers, SQLAlchemy, and Docker Compose.
+**There is no runnable source code.** All code exists only as inline snippets within the README.
 
 ### Development Environment
 
 - Python 3.12.3 virtual environment at `.venv/`
 - Activate with: `source .venv/bin/activate`
-- No dependencies to install (no `requirements.txt` exists yet)
-
-### What Cannot Be Done Yet
-
-- **Lint**: No source code to lint
-- **Test**: No tests exist
-- **Build**: No build system exists
-- **Run**: No application entry point exists
+- No dependencies to install (no `requirements.txt` file exists)
+- No lint, test, build, or run targets exist
 
 ### Notes for Future Agents
 
-- If source code is extracted from the README into actual files, the development environment will need `requirements.txt` created and dependencies installed.
-- The README contains multiple overlapping versions of the same project structure; the most complete version starts around line 4890.
-- Docker Compose configuration for backing services (PostgreSQL, Qdrant, Redis, Elasticsearch, Argilla) is described starting around line 6461.
+- The README contains multiple overlapping versions of planned project structures; the most complete one starts around line 4890.
+- Docker Compose configuration for backing services is described starting around line 6461.
+- Requirements lists appear at lines ~6567 and ~11481.
+- If the owner decides to extract code from the README into actual files, a `requirements.txt`, `docker-compose.yml`, and proper Python package structure will need to be created.
