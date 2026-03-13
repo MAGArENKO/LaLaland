@@ -1,0 +1,55 @@
+diff --git a/.cursor/skills/cloud-agent-starter/SKILL.md b/.cursor/skills/cloud-agent-starter/SKILL.md
+index ff74ddb..51e25e6 100644
+--- a/.cursor/skills/cloud-agent-starter/SKILL.md
++++ b/.cursor/skills/cloud-agent-starter/SKILL.md
+@@ -49,21 +49,18 @@ Keep only what your test path needs:
+ 
+ ## 3) Area-based execution + test workflows
+ 
+-## Area A: Recovery CLI + pipeline (`main.py`, `recovery/`)
++## Area A: Pipeline (`main.py pipeline`)
+ 
+ ### Run
+-- `python main.py recovery list`
+-- `python main.py recovery source <name>`
+-- `python main.py recovery full`
++- `python main.py pipeline`
+ 
+ ### Test workflow (high-signal)
+-1. Run `python main.py recovery list` and confirm expected enabled/disabled sources.
+-2. Run one source only: `python main.py recovery source local` (or another enabled source).
+-3. Validate output artifacts/log updates under expected data/log paths.
+-4. Only then run `python main.py recovery full`.
++1. Run `python main.py pipeline`.
++2. Validate the pipeline summary table is printed with non-zero status fields.
++3. If external integrations are disabled, confirm graceful fallback behavior (no crash).
+ 
+ ### Failure triage
+-- If source fails auth -> disable source and re-run local-only path.
++- If source auth fails -> disable external sources and rerun `python main.py pipeline`.
+ - If infra connection fails -> verify Docker services and `.env` endpoints match.
+ 
+ ## Area B: API service (`api/`, CLI `python main.py api`)
+@@ -88,16 +85,16 @@ Keep only what your test path needs:
+ 2. `curl -I http://localhost:8501` to validate service availability.
+ 3. If doing UI changes, manually verify core page loads and one end-to-end action (search or recovery trigger).
+ 
+-## Area D: MCP servers (`mcp/servers/`, CLI `python main.py mcp start <server>`)
++## Area D: Worker services (`main.py worker|beat`)
+ 
+ ### Run
+-- `python main.py mcp start recovery`
+-- `python main.py mcp start vfx` (or other configured server)
++- `python main.py worker`
++- `python main.py beat`
+ 
+ ### Test workflow
+-1. Start one MCP server only.
+-2. Verify process is live and expected port is bound.
+-3. Exercise one representative MCP tool/action from that server.
++1. Start worker or beat in isolation.
++2. Verify process starts and logs task scheduler/worker boot output.
++3. Stop after confirming command path works.
+ 
+ ## Area E: Scripts + workflows (`scripts/`, `workflows/`)
+ 

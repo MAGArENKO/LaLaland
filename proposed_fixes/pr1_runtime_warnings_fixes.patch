@@ -1,0 +1,35 @@
+diff --git a/requirements.txt b/requirements.txt
+index 3b452d2..cd5083c 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -36,7 +36,7 @@ streamlit>=1.28.0
+ plotly>=5.18.0
+ 
+ # File Processing
+-chardet>=5.2.0
++chardet>=5.2.0,<6
+ 
+ # GitHub
+ PyGithub>=2.1.0
+diff --git a/scrapers/base.py b/scrapers/base.py
+index 9686c8c..148adca 100644
+--- a/scrapers/base.py
++++ b/scrapers/base.py
+@@ -1,7 +1,7 @@
+ import hashlib
+ from abc import ABC, abstractmethod
+ from dataclasses import dataclass, field
+-from datetime import datetime
++from datetime import UTC, datetime
+ from enum import Enum
+ from pathlib import Path
+ from typing import Any, AsyncIterator, Dict, List, Optional
+@@ -40,7 +40,7 @@ class ScrapedItem:
+     metadata: Dict[str, Any] = field(default_factory=dict)
+     created_at: Optional[datetime] = None
+     modified_at: Optional[datetime] = None
+-    scraped_at: datetime = field(default_factory=datetime.utcnow)
++    scraped_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+     content_hash: str = ""
+     size_bytes: int = 0
+     language: Optional[str] = None
