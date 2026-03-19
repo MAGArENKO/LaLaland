@@ -34,3 +34,6 @@ The original `README.md` (~598KB) is the owner's raw research archive gathered a
 - The sentence-transformers model (`all-MiniLM-L6-v2`) downloads ~90MB on first use; cached at `~/.cache/huggingface/`.
 - Docker requires `fuse-overlayfs` and `iptables-legacy` in the cloud VM (Docker-in-Docker setup).
 - The `README.md` is ~600KB — it's the owner's raw research archive, not documentation.
+- `python3.12-venv` must be installed as a system package before creating the venv (`sudo apt-get install -y python3.12-venv`).
+- Copy `.env.example` to `.env` before starting the API — settings load from `.env` via `pydantic-settings`.
+- The `/search` endpoint returns empty results until a pipeline run completes (`POST /run` or `python main.py pipeline`). The in-memory vector store starts empty each time the API restarts.
