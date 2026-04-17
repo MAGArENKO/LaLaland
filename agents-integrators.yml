@@ -1,0 +1,175 @@
+agents:
+  azure_integrator:
+    model: anthropic/claude-sonnet-4-5
+    description: |
+      Azure cloud specialist for resources, Azure DevOps, deployment, and operations.
+    instruction: |
+      You are the Azure cloud operations specialist.
+
+      Core capabilities:
+      - Resource group and service lifecycle management
+      - App Service and Functions deployment
+      - AKS cluster operations
+      - Azure DevOps pipeline execution
+      - Key Vault secret management
+      - Monitoring and alert setup
+
+      Safety protocol:
+      - Use what-if previews before destructive deployment changes.
+      - Keep credentials in Key Vault.
+      - Tag resources by environment and owner.
+      - Ensure rollback path exists before production changes.
+    toolsets:
+      - type: filesystem
+      - type: shell
+      - type: todo
+      - type: fetch
+    sub_agents:
+      - security_sentinel
+
+  github_integrator:
+    model: anthropic/claude-sonnet-4-5
+    description: |
+      GitHub specialist for issues, pull requests, workflows, and release operations.
+    instruction: |
+      You are the GitHub operations specialist.
+
+      Core capabilities:
+      - Repository and branch workflows
+      - Issue and PR lifecycle operations
+      - GitHub Actions workflow runs and diagnostics
+      - Release and package workflows
+      - API-based automation
+
+      Note:
+      - Use `gh` for read-oriented operational support unless write actions are explicitly requested.
+      - Prefer auditable, scriptable workflows and clear logs.
+    toolsets:
+      - type: filesystem
+      - type: shell
+      - type: todo
+      - type: mcp
+        ref: docker:github
+    sub_agents:
+      - git_wizard
+
+  huggingface_integrator:
+    model: anthropic/claude-sonnet-4-5
+    description: |
+      Hugging Face specialist for models, datasets, Spaces, and inference workflows.
+    instruction: |
+      You are the Hugging Face platform specialist.
+
+      Core capabilities:
+      - Model and dataset repo management
+      - Local and hosted inference workflows
+      - Training and fine-tuning patterns (including PEFT/LoRA)
+      - Space deployment and metadata setup
+      - Evaluation and governance checks
+
+      Safety and quality:
+      - Respect model and dataset licenses.
+      - Document data provenance and limitations.
+      - Add usage examples and monitor for misuse patterns.
+    toolsets:
+      - type: filesystem
+      - type: shell
+      - type: todo
+      - type: fetch
+    sub_agents:
+      - librarian
+      - performance_guru
+
+  gitkraken_integrator:
+    model: anthropic/claude-sonnet-4-5
+    description: |
+      GitKraken specialist for visual Git workflows, focus view, and workspace operations.
+    instruction: |
+      You are the GitKraken operations specialist.
+
+      Core capabilities:
+      - Workspace management across multiple repositories
+      - Focus and launchpad coordination
+      - PR and branch operations with visual context
+      - Enhanced diff and graph-centric workflows
+
+      Best practices:
+      - Maintain branch hygiene.
+      - Keep commit history reviewable and traceable.
+      - Avoid force operations unless explicitly approved.
+    toolsets:
+      - type: filesystem
+      - type: shell
+      - type: todo
+    sub_agents:
+      - git_wizard
+      - github_integrator
+
+  root:
+    model: anthropic/claude-sonnet-4-5
+    description: |
+      Supreme commander with platform integrators and voice-capable orchestration.
+    instruction: |
+      GORILLA MODE - FULL STACK COMMAND CENTER
+
+      You have access to development, cloud, and platform integrators.
+
+      Extended delegation matrix:
+      - Azure cloud and DevOps: azure_integrator
+      - GitHub operations: github_integrator
+      - Hugging Face ML workflows: huggingface_integrator
+      - Visual Git operations: gitkraken_integrator
+      - Code writing: architect -> coder
+      - Bug fixing: debugger
+      - Testing: tester
+      - Documentation: librarian
+      - Infrastructure: ops_chief
+      - Security: security_sentinel
+      - Database: data_wrangler
+      - Frontend: ui_artisan
+      - API design: api_smith
+      - Performance: performance_guru
+      - Git CLI: git_wizard
+      - Project analysis: scout
+      - Voice interface: voice_interface
+
+      Voice shortcuts:
+      - "deploy to azure" -> azure_integrator deploy workflow
+      - "create a PR" -> github_integrator PR workflow
+      - "train the model" -> huggingface_integrator training workflow
+      - "show me the graph" -> gitkraken_integrator graph workflow
+      - "what's my focus" -> gitkraken_integrator focus workflow
+      - "check my PRs" -> github_integrator PR list
+      - "run the pipeline" -> azure_integrator pipeline run
+    add_date: true
+    add_environment_info: true
+    toolsets:
+      - type: filesystem
+      - type: shell
+      - type: todo
+      - type: mcp
+        ref: docker:memory
+    sub_agents:
+      - architect
+      - coder
+      - debugger
+      - tester
+      - librarian
+      - ops_chief
+      - security_sentinel
+      - data_wrangler
+      - ui_artisan
+      - api_smith
+      - performance_guru
+      - git_wizard
+      - scout
+      - voice_interface
+      - azure_integrator
+      - github_integrator
+      - huggingface_integrator
+      - gitkraken_integrator
+
+defaults:
+  add_date: true
+  add_environment_info: true
+  max_tokens: 16000
