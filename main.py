@@ -68,11 +68,47 @@ def run_beat():
         console.print("[red]Celery not available[/red]")
 
 
+def run_context_help():
+    """Show Cursor Cloud-oriented run/test/debug context."""
+    console.print("[bold blue]Project Recovery System - Cursor Context Help[/bold blue]")
+
+    services_table = Table(title="Services and Commands")
+    services_table.add_column("Service", style="cyan")
+    services_table.add_column("Port", style="green")
+    services_table.add_column("Command", style="white")
+    services_table.add_row("FastAPI API", "8000", "python main.py api")
+    services_table.add_row("Streamlit Dashboard", "8501", "python main.py dashboard")
+    services_table.add_row("Pipeline (one-shot)", "-", "python main.py pipeline")
+    services_table.add_row("Celery Worker", "-", "python main.py worker")
+    services_table.add_row("Celery Beat", "-", "python main.py beat")
+    console.print(services_table)
+
+    quick_checks_table = Table(title="Quick Checks")
+    quick_checks_table.add_column("Goal", style="cyan")
+    quick_checks_table.add_column("Command", style="white")
+    quick_checks_table.add_row("Run tests", "python -m pytest tests/ -v")
+    quick_checks_table.add_row("Run lint", "ruff check .")
+    quick_checks_table.add_row("Bring up optional infra", "docker compose up -d qdrant redis postgres")
+    quick_checks_table.add_row("API health", "curl -i http://localhost:8000/health")
+    quick_checks_table.add_row("Dashboard health", "curl -I http://localhost:8501")
+    console.print(quick_checks_table)
+
+    notes_table = Table(title="Operational Notes")
+    notes_table.add_column("Topic", style="cyan")
+    notes_table.add_column("Details", style="white")
+    notes_table.add_row("Source toggles", "Use config/sources.yaml to enable/disable GitHub/filesystem sources.")
+    notes_table.add_row("Fallback behavior", "App continues with in-memory fallbacks if external services are unavailable.")
+    notes_table.add_row("Model download", "First sentence-transformers run downloads ~90MB into Hugging Face cache.")
+    notes_table.add_row("README size", "README.md is a large archive; use focused files for implementation guidance.")
+    notes_table.add_row("Tip", "Run `python main.py context` at any time to print this guide.")
+    console.print(notes_table)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Project Recovery System")
     parser.add_argument(
         "command",
-        choices=["api", "dashboard", "pipeline", "worker", "beat", "all"],
+        choices=["api", "dashboard", "pipeline", "worker", "beat", "all", "context"],
         help="Command to run",
     )
 
@@ -90,6 +126,8 @@ def main():
         run_beat()
     elif args.command == "all":
         console.print("[bold]Use docker-compose to run all services[/bold]")
+    elif args.command == "context":
+        run_context_help()
 
 
 if __name__ == "__main__":
